@@ -47,8 +47,9 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="125dp"
-                android:background="@drawable/ic_image_black_24dp" />
+                android:layout_height="150dp"
+                android:background="#5e5d5d"
+                android:layout_margin="5dp"/>
 
             <ImageView
                 android:layout_width="match_parent"
@@ -56,7 +57,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="135dp"
+                android:layout_marginTop="160dp"
                 android:background="#979797" />
 
             <TextView
@@ -64,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="135dp"
+                android:layout_marginTop="160dp"
                 android:padding="10dp"
                 android:text="买书"
                 android:textSize="20sp" />
@@ -74,12 +75,19 @@
                 android:id="@+id/one_recycleView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="175dp">
+                android:layout_marginTop="200dp">
 
             </android.support.v7.widget.RecyclerView>
+
         </RelativeLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:text="我也是有底的(￣▽￣)"/>-->
 
 </RelativeLayout>

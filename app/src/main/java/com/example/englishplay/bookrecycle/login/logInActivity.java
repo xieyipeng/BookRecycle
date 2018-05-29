@@ -1,4 +1,4 @@
-package com.example.englishplay.bookrecycle.sign_in;
+package com.example.englishplay.bookrecycle.login;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,15 +8,17 @@ import android.widget.Button;
 
 import com.example.englishplay.bookrecycle.MainActivity;
 import com.example.englishplay.bookrecycle.R;
+import com.example.englishplay.bookrecycle.signIn.SignInActivity;
 
-public class SignInActivity extends AppCompatActivity {
+public class logInActivity extends AppCompatActivity {
 
     Button loginButton;
+    Button signButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in);
+        setContentView(R.layout.activity_logn_in);
         initViews();
         initClick();
     }
@@ -25,13 +27,21 @@ public class SignInActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent toMain = new Intent(SignInActivity.this, MainActivity.class);
-                startActivity(toMain);
+                Intent toLogin = new Intent(logInActivity.this, MainActivity.class);
+                startActivity(toLogin);
+            }
+        });
+        signButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent toSign=new Intent(logInActivity.this, SignInActivity.class);
+                startActivity(toSign);
             }
         });
     }
 
     private void initViews() {
         loginButton = findViewById(R.id.login_button);
+        signButton = findViewById(R.id.sign_button);
     }
 }

@@ -22,6 +22,7 @@ import com.example.englishplay.bookrecycle.bean.Book;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by 解奕鹏 on 2018/5/16.
@@ -42,7 +43,7 @@ public class FragmentMainOne extends Fragment implements SwipeRefreshLayout.OnRe
         application=getActivity().getApplication();
         initBook();
         initViews();
-        initClick();//点击事件卸载Adopter里面
+        initClick();//点击事件写在Adopter里面
         initData();
         return view;
     }
@@ -52,7 +53,7 @@ public class FragmentMainOne extends Fragment implements SwipeRefreshLayout.OnRe
         refreshLayout.setOnRefreshListener(this);
         //refreshLayout.setColorSchemeResources(R.color.orange, R.color.green, R.color.purple,R.color.swipefefresh_bg); // 进度动画颜色
         //设置RecyclerView的布局方式
-        LinearLayoutManager layoutManager=new LinearLayoutManager(view.getContext());
+        GridLayoutManager layoutManager=new GridLayoutManager(view.getContext(),2);//网格布局
         layoutManager.setOrientation(RecyclerView.VERTICAL);
 
         BookAdopter bookAdopter = new BookAdopter(bookList);
@@ -71,7 +72,9 @@ public class FragmentMainOne extends Fragment implements SwipeRefreshLayout.OnRe
 
     private void initBook() {
         for (int i = 0; i < 10; i++) {
-            Book book=new Book(i+"","text"+i);
+            Random random=new Random();
+            int a=random.nextInt(899)+100;
+            Book book=new Book("¥："+a,"text"+i);
             bookList.add(book);
         }
     }
