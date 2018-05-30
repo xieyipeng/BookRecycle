@@ -32,7 +32,7 @@ public class FragmentMainOne extends Fragment implements SwipeRefreshLayout.OnRe
 
     private View view;
     private SwipeRefreshLayout refreshLayout;
-    public Application application;
+//    public Application application;
     private RecyclerView oneRecycleView;
     private List<Book> bookList=new ArrayList<>();
 
@@ -40,7 +40,7 @@ public class FragmentMainOne extends Fragment implements SwipeRefreshLayout.OnRe
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view= inflater.inflate(R.layout.fragment_main_one, container, false);
-        application=getActivity().getApplication();
+//        application=getActivity().getApplication();
         initBook();
         initViews();
         initClick();//点击事件写在Adopter里面

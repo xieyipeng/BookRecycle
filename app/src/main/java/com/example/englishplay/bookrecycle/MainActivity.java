@@ -2,16 +2,26 @@ package com.example.englishplay.bookrecycle;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 
 import com.example.englishplay.bookrecycle.adopter.BookAdopter;
 import com.example.englishplay.bookrecycle.bean.Book;
@@ -27,7 +37,7 @@ import java.util.List;
 //https://blog.csdn.net/yanzi1225627/article/details/30763555
 //https://blog.csdn.net/zkjthinking/article/details/77043770    自定义view，图标眼睛转动
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FragmentMainOne messageFragment;
     private FragmentMainTwo contactsFragment;
@@ -49,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView newsText;
     private TextView settingText;
 
+    private DrawerLayout drawerLayout;
     private FragmentManager fragmentManager;
 
     @Override
@@ -57,12 +68,50 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
+        setToolBar();
+        setMainActionBar();
+        setNavigationView();
+
         initViews();
         fragmentManager = getSupportFragmentManager();
         // 第一次启动时选中第0个tab
         setTabSelection(0);
     }
 
+    /**
+     * NavigationView
+     */
+    private void setNavigationView() {
+        NavigationView navigationView;
+        navigationView = findViewById(R.id.main_nav_view);
+        navigationView.setCheckedItem(R.id.nav_menu_call);//默认选中
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                drawerLayout.closeDrawers();
+                return true;
+            }
+        });
+    }
+
+    /**
+     * 侧边栏
+     */
+    private void setMainActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);//显示导航按钮
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
+        }
+    }
+
+    /**
+     * toolBar
+     */
+    private void setToolBar() {
+        Toolbar toolbar = findViewById(R.id.main_toolBar);
+        setSupportActionBar(toolbar);
+    }
 
 
     private void initViews() {
@@ -70,18 +119,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         contactsLayout = findViewById(R.id.contacts_layout);
         newsLayout = findViewById(R.id.news_layout);
         settingLayout = findViewById(R.id.setting_layout);
-        messageImage =  findViewById(R.id.message_image);
+        messageImage = findViewById(R.id.message_image);
         contactsImage = findViewById(R.id.contacts_image);
-        newsImage =  findViewById(R.id.news_image);
+        newsImage = findViewById(R.id.news_image);
         settingImage = findViewById(R.id.setting_image);
-        messageText =  findViewById(R.id.message_text);
-        contactsText =  findViewById(R.id.contacts_text);
-        newsText =  findViewById(R.id.news_text);
-        settingText =  findViewById(R.id.setting_text);
+        messageText = findViewById(R.id.message_text);
+        contactsText = findViewById(R.id.contacts_text);
+        newsText = findViewById(R.id.news_text);
+        settingText = findViewById(R.id.setting_text);
         messageLayout.setOnClickListener(this);
         contactsLayout.setOnClickListener(this);
         newsLayout.setOnClickListener(this);
         settingLayout.setOnClickListener(this);
+
+        drawerLayout = findViewById(R.id.main_drawerLayout);
     }
 
     @Override
@@ -118,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                messageText.setTextColor(Color.WHITE);
                 if (messageFragment == null) {
                     messageFragment = new FragmentMainOne();
-                    transaction.add(R.id.content,messageFragment);
+                    transaction.add(R.id.content, messageFragment);
                 } else {
                     transaction.show(messageFragment);
                 }
@@ -178,8 +229,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * 将所有的Fragment都置为隐藏状态。
      *
-     * @param transaction
-     *            用于对Fragment执行操作的事务
+     * @param transaction 用于对Fragment执行操作的事务
      */
     private void hideFragments(FragmentTransaction transaction) {
         if (messageFragment != null) {
@@ -194,5 +244,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (settingFragment != null) {
             transaction.hide(settingFragment);
         }
+    }
+
+    /**
+     * ToolBar item
+     *
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar, menu);
+        return true;
+    }
+
+    /**
+     * ToolBar item 点击事件
+     *
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                drawerLayout.openDrawer(GravityCompat.START);//打开侧边栏
+                break;
+            case R.id.toolbar_item_backup:
+                //第一行代码 P414
+                Toast.makeText(this, "backup", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 }
