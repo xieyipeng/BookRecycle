@@ -1,5 +1,6 @@
 package com.example.englishplay.bookrecycle.adopter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,20 +15,22 @@ import com.example.englishplay.bookrecycle.MainActivity;
 import com.example.englishplay.bookrecycle.R;
 import com.example.englishplay.bookrecycle.bean.Book;
 import com.example.englishplay.bookrecycle.buy_sell.BuyActivity;
+import com.example.englishplay.bookrecycle.tools.OnItemClickListener;
 
 import java.util.List;
 
 public class BookAdopter extends RecyclerView.Adapter<BookAdopter.ViewHolder> {
+    private List<Book> bookList;
 
-    public BookAdopter(List<Book> bookList){
-        this.bookList=bookList;
+    public BookAdopter(List<Book> bookList) {
+        this.bookList = bookList;
     }
 
-    private List<Book> bookList;
     @Override
     public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.book_item,parent,false);
-        final ViewHolder holder=new ViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.book_item, parent, false);
+        final MainActivity mainActivity = new MainActivity();
+        final ViewHolder holder = new ViewHolder(view, mainActivity.context);
 //        holder.bookView.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -46,22 +49,27 @@ public class BookAdopter extends RecyclerView.Adapter<BookAdopter.ViewHolder> {
 //                Toast.makeText(v.getContext(), "bookTextView", Toast.LENGTH_SHORT).show();
 //            }
 //        });
-        holder.recyclerView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = holder.getAdapterPosition();
-                Book book=bookList.get(position);
-                Intent toBuy=new Intent(parent.getContext(), BuyActivity.class);
-                toBuy.putExtra("book",book.getName());
-            }
-        });
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        Book book=bookList.get(position);
+    public void onBindViewHolder(final ViewHolder holder, int position) {
+        Book book = bookList.get(position);
         holder.bookName.setText(book.getName());
+
+
+//        View itemView = ((RelativeLayout) holder.itemView).getChildAt(0);
+
+        View itemView =holder.itemView;
+        if (mOnItemClickListener != null) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = holder.getLayoutPosition();
+                    mOnItemClickListener.onItemClick(holder.itemView, position);
+                }
+            });
+        }
     }
 
     @Override
@@ -69,18 +77,26 @@ public class BookAdopter extends RecyclerView.Adapter<BookAdopter.ViewHolder> {
         return bookList.size();
     }
 
+    private OnItemClickListener mOnItemClickListener;//声明接口
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        mOnItemClickListener = onItemClickListener;
+    }
+
+
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        RecyclerView recyclerView1;
-        View bookView;
         TextView bookName;
-        ImageView bookImageView;
-        public ViewHolder(View itemView) {
+//        RelativeLayout bookItem;
+//        View bookView;
+//        ImageView bookImageView;
+
+        public ViewHolder(View itemView, Context context) {
             super(itemView);
 //            bookView=itemView;
 //            bookImageView=itemView.findViewById(R.id.book_item_ImageView);
-//            bookName=itemView.findViewById(R.id.book_item_TextView);
-            recyclerView1=itemView.findViewById(R.id.one_recycleView);
+//            bookItem =itemView.findViewById(R.id.book_item);
+            bookName = itemView.findViewById(R.id.book_item_TextView);
         }
     }
 }

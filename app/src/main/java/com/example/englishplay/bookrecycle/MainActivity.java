@@ -1,5 +1,6 @@
 package com.example.englishplay.bookrecycle;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView newsText;
     private TextView settingText;
 
+    public Context context=MainActivity.this;
     private DrawerLayout drawerLayout;
     private FragmentManager fragmentManager;
 
@@ -145,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 setTabSelection(1);
                 break;
             case R.id.news_layout:
+
                 setTabSelection(2);
                 break;
             case R.id.setting_layout:

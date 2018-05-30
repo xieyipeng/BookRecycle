@@ -29,6 +29,7 @@ public class logInActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent toLogin = new Intent(logInActivity.this, MainActivity.class);
                 startActivity(toLogin);
+                finish();
             }
         });
         signButton.setOnClickListener(new View.OnClickListener() {
