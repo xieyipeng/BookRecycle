@@ -13,11 +13,11 @@ import com.example.englishplay.bookrecycle.R;
  * Created by 解奕鹏 on 2018/5/17.
  */
 
-public class FragmentMainFour extends Fragment {
+public class FragmentMainPerson extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View messageLayout = inflater.inflate(R.layout.fragment_main_four, container, false);
+        View messageLayout = inflater.inflate(R.layout.fragment_main_person, container, false);
         return messageLayout;
     }
 }

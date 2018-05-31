@@ -11,39 +11,29 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.example.englishplay.bookrecycle.adopter.BookAdopter;
-import com.example.englishplay.bookrecycle.bean.Book;
-import com.example.englishplay.bookrecycle.fragment.FragmentMainFour;
-import com.example.englishplay.bookrecycle.fragment.FragmentMainOne;
-import com.example.englishplay.bookrecycle.fragment.FragmentMainThree;
-import com.example.englishplay.bookrecycle.fragment.FragmentMainTwo;
-
-import java.util.ArrayList;
-import java.util.List;
-
-//https://blog.csdn.net/guolin_blog/article/details/13171191    郭林
-//https://blog.csdn.net/yanzi1225627/article/details/30763555
-//https://blog.csdn.net/zkjthinking/article/details/77043770    自定义view，图标眼睛转动
+import com.example.englishplay.bookrecycle.fragment.FragmentMainPerson;
+import com.example.englishplay.bookrecycle.fragment.FragmentMainBuy;
+import com.example.englishplay.bookrecycle.fragment.FragmentMainFirst;
+import com.example.englishplay.bookrecycle.fragment.FragmentMainSell;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private FragmentMainOne messageFragment;
-    private FragmentMainTwo contactsFragment;
-    private FragmentMainThree newsFragment;
-    private FragmentMainFour settingFragment;
+    public static final String TAG = "hello";
+
+    private FragmentMainBuy fragmentMainBuy;
+    private FragmentMainSell fragmentMainSell;
+    private FragmentMainFirst fragmentMainFirst;
+    private FragmentMainPerson fragmentMainPerson;
 
     private View messageLayout;
     private View contactsLayout;
@@ -60,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView newsText;
     private TextView settingText;
 
-    public Context context=MainActivity.this;
+    public Context context = MainActivity.this;
     private DrawerLayout drawerLayout;
     private FragmentManager fragmentManager;
 
@@ -86,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void setNavigationView() {
         NavigationView navigationView;
         navigationView = findViewById(R.id.main_nav_view);
-        navigationView.setCheckedItem(R.id.nav_menu_call);//默认选中
+//        navigationView.setCheckedItem(R.id.nav_menu_call);//默认选中
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -94,6 +84,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return true;
             }
         });
+    }
+
+    /**
+     * toolBar
+     */
+    private void setToolBar() {
+        Toolbar toolbar = findViewById(R.id.main_buy_toolBar);
+        setSupportActionBar(toolbar);
     }
 
     /**
@@ -105,14 +103,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             actionBar.setDisplayHomeAsUpEnabled(true);//显示导航按钮
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
         }
-    }
-
-    /**
-     * toolBar
-     */
-    private void setToolBar() {
-        Toolbar toolbar = findViewById(R.id.main_toolBar);
-        setSupportActionBar(toolbar);
     }
 
 
@@ -167,48 +157,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         hideFragments(transaction);
         switch (index) {
             case 0:
-                // 当点击了消息tab时，改变控件的图片和文字颜色
-//                messageImage.setImageResource(R.drawable.message_selected);
-//                messageText.setTextColor(Color.WHITE);
-                if (messageFragment == null) {
-                    messageFragment = new FragmentMainOne();
-                    transaction.add(R.id.content, messageFragment);
+                messageImage.setImageResource(R.drawable.ic_main_first_selected);
+                messageText.setTextColor(Color.parseColor("#ff6d6b"));
+                if (fragmentMainFirst == null) {
+                    fragmentMainFirst = new FragmentMainFirst();
+                    transaction.add(R.id.content, fragmentMainFirst);
                 } else {
-                    transaction.show(messageFragment);
+                    transaction.show(fragmentMainFirst);
                 }
                 break;
             case 1:
-                // 当点击了联系人tab时，改变控件的图片和文字颜色
-//                contactsImage.setImageResource(R.drawable.contacts_selected);
-//                contactsText.setTextColor(Color.WHITE);
-                if (contactsFragment == null) {
-                    contactsFragment = new FragmentMainTwo();
-                    transaction.add(R.id.content, contactsFragment);
+                contactsImage.setImageResource(R.drawable.ic_main_buy_select);
+                contactsText.setTextColor(Color.parseColor("#ff6d6b"));
+                if (fragmentMainBuy == null) {
+                    fragmentMainBuy = new FragmentMainBuy();
+                    transaction.add(R.id.content, fragmentMainBuy);
                 } else {
-                    transaction.show(contactsFragment);
+                    transaction.show(fragmentMainBuy);
                 }
                 break;
             case 2:
-                // 当点击了动态tab时，改变控件的图片和文字颜色
-//                newsImage.setImageResource(R.drawable.news_selected);
-//                newsText.setTextColor(Color.WHITE);
-                if (newsFragment == null) {
-                    newsFragment = new FragmentMainThree();
-                    transaction.add(R.id.content, newsFragment);
+                newsImage.setImageResource(R.drawable.ic_main_sell_select);
+                newsText.setTextColor(Color.parseColor("#ff6d6b"));
+                if (fragmentMainSell == null) {
+                    fragmentMainSell = new FragmentMainSell();
+                    transaction.add(R.id.content, fragmentMainSell);
                 } else {
-                    transaction.show(newsFragment);
+                    transaction.show(fragmentMainSell);
                 }
                 break;
             case 3:
             default:
-                // 当点击了设置tab时，改变控件的图片和文字颜色
-//                settingImage.setImageResource(R.drawable.setting_selected);
-//                settingText.setTextColor(Color.WHITE);
-                if (settingFragment == null) {
-                    settingFragment = new FragmentMainFour();
-                    transaction.add(R.id.content, settingFragment);
+                settingImage.setImageResource(R.drawable.ic_main_order_select);
+                settingText.setTextColor(Color.parseColor("#ff6d6b"));
+                if (fragmentMainPerson == null) {
+                    fragmentMainPerson = new FragmentMainPerson();
+                    transaction.add(R.id.content, fragmentMainPerson);
                 } else {
-                    transaction.show(settingFragment);
+                    transaction.show(fragmentMainPerson);
                 }
                 break;
         }
@@ -219,13 +205,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * 清除掉所有的选中状态。
      */
     private void clearSelection() {
-//        messageImage.setImageResource(R.drawable.message_unselected);
+        messageImage.setImageResource(R.drawable.ic_main_first);
         messageText.setTextColor(Color.parseColor("#82858b"));
-//        contactsImage.setImageResource(R.drawable.contacts_unselected);
+        contactsImage.setImageResource(R.drawable.ic_main_buy);
         contactsText.setTextColor(Color.parseColor("#82858b"));
-//        newsImage.setImageResource(R.drawable.news_unselected);
+        newsImage.setImageResource(R.drawable.ic_main_sell);
         newsText.setTextColor(Color.parseColor("#82858b"));
-//        settingImage.setImageResource(R.drawable.setting_unselected);
+        settingImage.setImageResource(R.drawable.ic_main_order);
         settingText.setTextColor(Color.parseColor("#82858b"));
     }
 
@@ -235,17 +221,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * @param transaction 用于对Fragment执行操作的事务
      */
     private void hideFragments(FragmentTransaction transaction) {
-        if (messageFragment != null) {
-            transaction.hide(messageFragment);
+        if (fragmentMainBuy != null) {
+            transaction.hide(fragmentMainBuy);
         }
-        if (contactsFragment != null) {
-            transaction.hide(contactsFragment);
+        if (fragmentMainSell != null) {
+            transaction.hide(fragmentMainSell);
         }
-        if (newsFragment != null) {
-            transaction.hide(newsFragment);
+        if (fragmentMainFirst != null) {
+            transaction.hide(fragmentMainFirst);
         }
-        if (settingFragment != null) {
-            transaction.hide(settingFragment);
+        if (fragmentMainPerson != null) {
+            transaction.hide(fragmentMainPerson);
         }
     }
 

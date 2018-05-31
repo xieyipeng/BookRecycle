@@ -28,8 +28,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_call_black_24dp" />
-                            <entry key="sourceFile" value="C:\Users\xieyipeng" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="ic_main_sell" />
+                            <entry key="sourceFile" value="C:\Users\xieyipeng\Downloads\卖.svg" />
                           </map>
                         </option>
                       </PersistentState>

@@ -11,14 +11,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/main_toolBar"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="#3F51B5"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
         <FrameLayout
             android:id="@+id/content"
             android:layout_width="match_parent"
@@ -29,7 +21,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:background="#ffffff">
 
             <RelativeLayout
@@ -49,14 +41,14 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="#000000" />
+                        android:src="@drawable/ic_main_first" />
 
                     <TextView
                         android:id="@+id/message_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text="买书"
+                        android:text="首页"
                         android:textColor="#82858b" />
                 </LinearLayout>
             </RelativeLayout>
@@ -78,14 +70,14 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="#000000" />
+                        android:src="@drawable/ic_main_buy" />
 
                     <TextView
                         android:id="@+id/contacts_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text="卖书"
+                        android:text="买书"
                         android:textColor="#82858b" />
                 </LinearLayout>
             </RelativeLayout>
@@ -107,14 +99,14 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="#000000" />
+                        android:src="@drawable/ic_main_sell" />
 
                     <TextView
                         android:id="@+id/news_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text="消息"
+                        android:text="卖书"
                         android:textColor="#82858b" />
                 </LinearLayout>
             </RelativeLayout>
@@ -136,17 +128,16 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="#000000" />
+                        android:src="@drawable/ic_main_order" />
 
                     <TextView
                         android:id="@+id/setting_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text="设置"
+                        android:text="订单"
                         android:textColor="#82858b" />
                 </LinearLayout>
-
 
             </RelativeLayout>
 

@@ -1,6 +1,5 @@
 package com.example.englishplay.bookrecycle.fragment;
 
-import android.app.Application;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -23,7 +22,7 @@ import java.util.Random;
  * Created by 解奕鹏 on 2018/5/17.
  */
 
-public class FragmentMainTwo extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+public class FragmentMainSell extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
     private View view;
     private SwipeRefreshLayout refreshLayout;
@@ -34,7 +33,7 @@ public class FragmentMainTwo extends Fragment implements SwipeRefreshLayout.OnRe
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view= inflater.inflate(R.layout.fragment_main_two, container, false);
+        view= inflater.inflate(R.layout.fragment_main_sell, container, false);
 //        application=getActivity().getApplication();
         initBook();
         initViews();
