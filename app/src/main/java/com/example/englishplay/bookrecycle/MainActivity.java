@@ -2,6 +2,7 @@ package com.example.englishplay.bookrecycle;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -15,7 +16,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,8 +30,6 @@ import com.example.englishplay.bookrecycle.fragment.FragmentMainFirst;
 import com.example.englishplay.bookrecycle.fragment.FragmentMainSell;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
-    public static final String TAG = "hello";
 
     private FragmentMainBuy fragmentMainBuy;
     private FragmentMainSell fragmentMainSell;
@@ -57,16 +58,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         setContentView(R.layout.activity_main);
 
         setToolBar();
         setMainActionBar();
         setNavigationView();
-
         initViews();
         fragmentManager = getSupportFragmentManager();
-        // 第一次启动时选中第0个tab
         setTabSelection(0);
     }
 
