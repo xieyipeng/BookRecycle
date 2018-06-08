@@ -77,5 +77,15 @@
 
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/logn_jump_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="跳过"
+        android:textSize="20sp"
+        android:layout_margin="10dp"/>
+
 
 </RelativeLayout>

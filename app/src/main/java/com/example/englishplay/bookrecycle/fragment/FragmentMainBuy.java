@@ -122,7 +122,8 @@ public class FragmentMainBuy extends Fragment {
         for (int i = 0; i < 10; i++) {
             Random random = new Random();
             int a = random.nextInt(899) + 100;
-            Book book = new Book("¥：" + a, "text" + i);
+            Book book = new Book();
+            book.setPrice("¥：" + a);
             bookList.add(book);
         }
     }

@@ -4,6 +4,14 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.autofocus" />
 
     <application
         android:allowBackup="true"
@@ -23,7 +31,9 @@
         <activity android:name=".signIn.SignInActivity" />
         <activity android:name=".buy_sell.BuyActivity" />
         <activity android:name=".buy_sell.SellActivity" />
-        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".SearchResultActivity" />
+        <activity android:name=".CameraActivity" />
+        <activity android:name=".CustomerServiceActivity"></activity>
     </application>
 
 </manifest>

@@ -1,20 +1,15 @@
 package com.example.englishplay.bookrecycle.adopter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.englishplay.bookrecycle.MainActivity;
 import com.example.englishplay.bookrecycle.R;
 import com.example.englishplay.bookrecycle.bean.Book;
-import com.example.englishplay.bookrecycle.buy_sell.BuyActivity;
 import com.example.englishplay.bookrecycle.tools.OnItemClickListener;
 
 import java.util.List;
@@ -55,7 +50,7 @@ public class BookAdopter extends RecyclerView.Adapter<BookAdopter.ViewHolder> {
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Book book = bookList.get(position);
-        holder.bookName.setText(book.getName());
+        holder.bookName.setText(book.getTitle());
 
 
 //        View itemView = ((RelativeLayout) holder.itemView).getChildAt(0);
