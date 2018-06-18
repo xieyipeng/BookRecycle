@@ -5,8 +5,6 @@
     android:background="#f1f1f1"
     android:clipToPadding="true" >
 
-
-
     <RelativeLayout
         android:id="@+id/titleBar"
         android:layout_width="fill_parent"
@@ -23,11 +21,6 @@
             android:text="FindBook"
             android:textColor="#ffffff"
             android:textSize="20sp" />
-        <include
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            layout="@layout/item_divider" />
     </RelativeLayout>
 
     <ScrollView

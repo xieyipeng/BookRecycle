@@ -2,6 +2,8 @@ package com.example.englishplay.bookrecycle.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -23,6 +25,9 @@ import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_CANCELED;
@@ -35,11 +40,11 @@ import static android.support.constraint.Constraints.TAG;
 
 public class FragmentMainFirst extends Fragment implements OnBannerListener {
     private Banner banner;
-    private ArrayList<String> list_path;
-    private ArrayList<String> list_title;
     private ImageView customerNewsImageView;
     ImageView searchOneSearchButton;
     private View view;
+    private ImageView card1ImageView;
+    private ImageView card2ImageView;
 
     @Nullable
     @Override
@@ -53,16 +58,21 @@ public class FragmentMainFirst extends Fragment implements OnBannerListener {
     }
 
     private void initClick() {
+        Bitmap bitmap1 = getHttpBitmap("https://img1.doubanio.com/view/subject/l/public/s28735609.jpg");//机器学习
+        card1ImageView.setImageBitmap(bitmap1);
+        Bitmap bitmap2 = getHttpBitmap("https://img3.doubanio.com/view/subject/l/public/s9108113.jpg");
+        card2ImageView.setImageBitmap(bitmap2);
         searchOneSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                requestPermission();
                 startActivityForResult(new Intent(view.getContext(), CaptureActivity.class), CaptureActivity.REQ_CODE);
             }
         });
         customerNewsImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(view.getContext(), CustomerServiceActivity.class);
+                Intent intent = new Intent(view.getContext(), CustomerServiceActivity.class);
                 startActivity(intent);
             }
         });
@@ -71,7 +81,9 @@ public class FragmentMainFirst extends Fragment implements OnBannerListener {
     private void initViews() {
         searchOneSearchButton = view.findViewById(R.id.search_one_search_ImageView);
         banner = view.findViewById(R.id.main_first_fragment_banner_Banner);
-        customerNewsImageView=view.findViewById(R.id.main_first_customer_news_imageview);
+        customerNewsImageView = view.findViewById(R.id.main_first_customer_news_imageview);
+        card1ImageView = view.findViewById(R.id.main_first_card1_ImageView);
+        card2ImageView = view.findViewById(R.id.main_first_card2_ImageView);
 
     }
 
@@ -99,20 +111,38 @@ public class FragmentMainFirst extends Fragment implements OnBannerListener {
         }
     }
 
+    private void requestPermission() {
+//        if (ContextCompat.checkSelfPermission(view.getContext(), Manifest.permission.CAMERA)
+//                != PackageManager.PERMISSION_GRANTED) {
+//            // 第一次请求权限时，用户如果拒绝，下一次请求shouldShowRequestPermissionRationale()返回true
+//            // 向用户解释为什么需要这个权限
+//            if (ContextCompat.checkSelfPermission(view.getContext(), Manifest.permission.CAMERA)
+//                    != PackageManager.PERMISSION_GRANTED) {
+//                ActivityCompat.requestPermissions((Activity) context,
+//                                           new String[]{Manifest.permission.CAMERA},
+//                                        TAKE_PHOTO_REQUEST_CODE);
+//            } else {
+//                camera();
+//            }
+//        }
+    }
+
+    private void camera() {
+
+    }
+
     private void initBanner() {
         //放图片地址的集合
-        list_path = new ArrayList<>();
+        ArrayList<String> list_path = new ArrayList<>();
         //放标题的集合
-        list_title = new ArrayList<>();
+        ArrayList<String> list_title = new ArrayList<>();
 
-        list_path.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic21363tj30ci08ct96.jpg");
-        list_path.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic259ohaj30ci08c74r.jpg");
-        list_path.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2b16zuj30ci08cwf4.jpg");
-        list_path.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2e7vsaj30ci08cglz.jpg");
+        list_path.add("https://s1.ax1x.com/2018/06/17/Cx1zPH.png");
+        list_path.add("https://s1.ax1x.com/2018/06/17/Cx1jaD.png");
+        list_path.add("https://s1.ax1x.com/2018/06/17/Cx1vIe.png");
         list_title.add("好好学习");
         list_title.add("天天向上");
         list_title.add("热爱劳动");
-        list_title.add("不搞对象");
         //设置内置样式，共有六种可以点入方法内逐一体验使用。
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
         //设置图片加载器，图片加载器在下方
@@ -146,5 +176,33 @@ public class FragmentMainFirst extends Fragment implements OnBannerListener {
         public void displayImage(Context context, Object path, ImageView imageView) {
             Glide.with(context).load((String) path).into(imageView);
         }
+    }
+
+    public static Bitmap getHttpBitmap(String url) {
+        URL myFileURL;
+        Bitmap bitmap = null;
+        try {
+            myFileURL = new URL(url);
+            //获得连接
+            HttpURLConnection conn = (HttpURLConnection) myFileURL.openConnection();
+            //设置超时时间为6000毫秒，conn.setConnectionTiem(0);表示没有时间限制
+            conn.setConnectTimeout(6000);
+            //连接设置获得数据流
+            conn.setDoInput(true);
+            //不使用缓存
+            conn.setUseCaches(false);
+            //这句可有可无，没有影响
+            //conn.connect();
+            //得到数据流
+            InputStream is = conn.getInputStream();
+            //解析得到图片
+            bitmap = BitmapFactory.decodeStream(is);
+            //关闭数据流
+            is.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e(TAG, "getHttpBitmap: error");
+        }
+        return bitmap;
     }
 }
